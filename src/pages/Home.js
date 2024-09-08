@@ -1,85 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useParams } from "react-router-dom"
+import React from 'react';
 
-export default function Home() {
-
-    const [users, setUsers]=useState([])
-
-    const { id } = useParams()
-
-    useEffect(()=>{
-        loadUsers();
-    },[]);
-
-    const loadUsers = async () => {
-      try {
-          const result = await axios.get("http://localhost:8080/user");
-          setUsers(result.data);
-      } catch (error) {
-          console.error("Error loading users:", error);
-      }
-  };
-
-    const deleteUser = async (id) => {
-        await axios.delete(`http://localhost:8080/user/${id}`)
-        loadUsers()
-    }
-
+const Home = () => {
   return (
-    <div className='container'>
-        <div className='py-4'>
-        <table className="table border shadow">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Family name</th>
-      <th scope="col">Name</th>
-      <th scope="col">Phone number</th>
-      <th scope="col">Email</th>
-      <th scope="col">Salary</th>
-      <th scope="col">Action</th>
-
-    </tr>
-  </thead>
-  <tbody>
-
-    {
-        users.map((user,index)=>(
-    <tr>
-      <th scope="row" key={index}>
-        {index+1}
-        </th>
-      <td>{user.familyname}</td>
-      <td>{user.name}</td>
-      <td>{user.phonenumber}</td>
-      <td>{user.email}</td>
-      <td>{user.salary}</td>
-      <td>
-        <Link
-        className='btn btn-primary mx-2'
-        to={`/viewuser/${user.id}`}
-        >
-        View
-        </Link>
-        <Link 
-            className='btn btn-outline-primary mx-2'
-            to={`/edituser/${user.id}`}
-        >
-            Edit
-        </Link>
-        <button className='btn btn-danger mx-2'
-
-        onClick={()=>deleteUser(user.id)}
-        >Delete</button>
-
-      </td>
-    </tr>
-        ))}
-   
-  </tbody>
-</table>  
-        </div>
+    <div className="container">
+      <h1>Welcome to Employer Manager!</h1>
+      <p>
+        Employer Manager is a powerful tool designed to help you manage your workforce efficiently. 
+        With our application, you can easily add, update, and delete employer records while keeping track of their details.
+      </p>
+      <p>
+        Whether you're a business owner or a human resources professional, our intuitive interface 
+        will simplify your employer management tasks.
+      </p>
+      <p>
+        Join us today and take the first step towards streamlined employer management!
+      </p>
     </div>
-  )
-}
+  );
+};
+
+export default Home;
+
